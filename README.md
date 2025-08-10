@@ -1,7 +1,7 @@
 # clapper-appimage
 Test of Clapper AppImage, not intended for daily-driving yet.
 
-## Known issues
+## Known issues / TO-DO
 
 - Build `clapper` from source instead of relying on Arch repos
 - Playing videos doesn't work at all at the moment due to not including codecs
