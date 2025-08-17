@@ -38,6 +38,9 @@ StartupWMClass=clapper
 ## Further debloat locale
 find ./AppDir/share/locale -type f ! -name '*glib*' ! -name '*clapper-app*' -delete
 
+## Set gsettings to save to keyfile, instead to dconf
+echo "GSETTINGS_BACKEND=keyfile" >> ./AppDir/.env
+
 # MAKE APPIMAGE WITH URUNTIME
 wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime2appimage
 chmod +x ./uruntime2appimage
