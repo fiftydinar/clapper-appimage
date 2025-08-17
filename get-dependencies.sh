@@ -4,7 +4,9 @@ set -eux
 
 sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
 
-if [ "$(uname -m)" = 'x86_64' ]; then
+ARCH="$(uname -m)"
+
+if [ "$ARCH" = 'x86_64' ]; then
 	PKG_TYPE='x86_64.pkg.tar.zst'
 else
 	PKG_TYPE='aarch64.pkg.tar.xz'
@@ -23,7 +25,6 @@ VK_PANFROST_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/do
 VK_FREEDRENO_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-freedreno-mini-$PKG_TYPE"
 VK_BROADCOM_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/vulkan-broadcom-mini-$PKG_TYPE"
 
-
 echo "Installing build dependencies for sharun & AppImage integration..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
@@ -38,7 +39,8 @@ pacman -Syu --noconfirm \
 echo "Installing the app & it's dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
-	snapshot
+	clapper \
+	mesa
 
 case "$ARCH" in
 	'x86_64')  

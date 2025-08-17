@@ -26,9 +26,9 @@ wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
 ./quick-sharun /usr/bin/clapper
 
-# Patch StartupWMClass to work on X11
-# Doesn't work when ran in Wayland, as it's 'com.github.rafostar.Clapper' instead.
-# It needs to be manually changed by the user in this case.
+## Patch StartupWMClass to work on X11
+## Doesn't work when ran in Wayland, as it's 'com.github.rafostar.Clapper' instead.
+## It needs to be manually changed by the user in this case.
 sed -i '/^\[Desktop Entry\]/a\
 StartupWMClass=clapper
 ' ./AppDir/*.desktop
