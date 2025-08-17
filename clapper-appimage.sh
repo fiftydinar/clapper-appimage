@@ -24,7 +24,7 @@ mkdir -p ./AppDir/shared/lib
 # DEPLOY ALL LIBS
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
-./quick-sharun /usr/bin/clapper
+./quick-sharun /usr/bin/clapper -- https://test-videos.co.uk/vids/bigbuckbunny/mp4/h265/1080/Big_Buck_Bunny_1080_10s_1MB.mp4
 
 ## Patch StartupWMClass to work on X11
 ## Doesn't work when ran in Wayland, as it's 'com.github.rafostar.Clapper' instead.
