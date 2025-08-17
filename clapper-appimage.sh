@@ -15,7 +15,9 @@ export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}
 export OUTNAME="$PACKAGE"-"$VERSION"-anylinux-"$ARCH".AppImage
 export DESKTOP=/usr/share/applications/com.github.rafostar.Clapper.desktop
 export ICON=/usr/share/icons/hicolor/scalable/apps/com.github.rafostar.Clapper.svg
-export PATH_MAPPING_RELATIVE=1 # GTK applications are usually hardcoded to look into /usr/share, especially noticeable in non-working locale, looking for better solution which doesn't change working directory
+export PATH_MAPPING_HARDCODED=1 # GTK applications are usually hardcoded to look into /usr/share, especially noticeable in non-working locale, hence why this is used
+export DEPLOY_OPENGL=1
+export DEPLOY_VULKAN=1
 export DEPLOY_LOCALE=1
 
 # Prepare AppDir
