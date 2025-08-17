@@ -1,13 +1,12 @@
-name: Create & release Appimage
+name: AppImage
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
 on:
   schedule:
-    - cron: "0 15 * * 0"
+    - cron: "0 16 1/14 * *"
   workflow_dispatch:
-
 jobs:
   build:
     name: "${{ matrix.name }} (${{ matrix.arch }})"
@@ -22,18 +21,17 @@ jobs:
             name: "Build AppImage"
             arch: aarch64
     container: ghcr.io/pkgforge-dev/archlinux:latest
-    
     steps:
     - uses: actions/checkout@v4
 
     - name: Get dependencies
       if: always()
-      run: |
-        chmod +x ./get-dependencies.sh && ./get-dependencies.sh
+      run: chmod +x ./get-dependencies.sh && ./get-dependencies.sh
 
     - name: Make AppImage
       run: |
-        chmod +x ./*-appimage.sh && ./*-appimage.sh
+        chmod +x ./*-appimage.sh 
+        ./*-appimage.sh
         mkdir dist
         mv *.AppImage* dist/
 
@@ -41,21 +39,22 @@ jobs:
       run: |
        cat ~/version
        echo "APP_VERSION=$(cat ~/version)" >> "${GITHUB_ENV}"
-    
+
     - name: Upload artifact
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: AppImage-${{ matrix.arch }}
         path: 'dist'
-        
+
     - name: Upload version file
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4.6.2
       with:
        name: version
        path: ~/version
        overwrite: true
-      
+
   release:
+      if: ${{ github.ref_name == 'main' }}
       needs: [build]
       permissions: write-all
       runs-on: ubuntu-latest
@@ -64,55 +63,38 @@ jobs:
         - uses: actions/download-artifact@v4.3.0
           with:
             name: AppImage-x86_64
+
         - uses: actions/download-artifact@v4.3.0
           with:
             name: AppImage-aarch64
+
         - uses: actions/download-artifact@v4.3.0
           with:
             name: version
 
-        - name: Read version
+        - name: Read version and Get date
           run: |
-            cat version
-            export VERSION="$(<version)"
-            echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
-    
-        #Version Release
-        - name: Del Previous Release
-          run: |
-            gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag  -y
-            sleep 5
-          env:
-            GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          continue-on-error: true
-        - name: Continuous Releaser
-          uses: softprops/action-gh-release@v2
+            echo "VERSION=$(cat version)" >> "${GITHUB_ENV}"
+            echo "DATE=$(date +'%Y-%m-%d_%s')" >> "${GITHUB_ENV}"
+
+        - name: Release Artifacts
+          uses: softprops/action-gh-release@v2.2.2
           with:
-            name: "Clapper ${{ env.APP_VERSION }}"
-            tag_name: "${{ env.APP_VERSION }}"
+            name: "Clapper: ${{ env.VERSION }}"
+            tag_name: "${{ env.VERSION }}@${{ env.DATE }}"
             prerelease: false
             draft: false
             generate_release_notes: false
             make_latest: true
             files: |
               *.AppImage*
-          continue-on-error: false
 
-        #Snapshot Release
-        - name: Get Date
+        - uses: actions/checkout@v4
+        - name: Update LATEST_VERSION
           run: |
-            SNAPSHOT_TAG="$(date --utc +'%Y%m%d-%H%M%S')"
-            echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
-          continue-on-error: false
-        - name: Snapshot Releaser
-          uses: softprops/action-gh-release@v2
-          with:
-            name: "Snapshot ${{ env.APP_VERSION }}"
-            tag_name: "${{ env.SNAPSHOT_TAG }}"
-            prerelease: false
-            draft: false
-            generate_release_notes: false
-            make_latest: false
-            files: |
-              *.AppImage*
-          continue-on-error: false
+            echo "${{ env.VERSION }}" > ./LATEST_VERSION
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add ./LATEST_VERSION
+            git commit --allow-empty -m 'bump `LATEST_VERSION` [skip ci]'
+            git push
