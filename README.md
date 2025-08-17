@@ -6,4 +6,4 @@ When the known issue gets solved, repo will be transfered to pkgforge-dev repo &
 
 ## Known issue
 
-- Need to test
+- Cannot play any video, `clapper` cannot find the GST plugins, even with environment variable set
