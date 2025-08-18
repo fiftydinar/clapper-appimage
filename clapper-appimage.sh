@@ -27,14 +27,6 @@ mkdir -p ./AppDir/shared/lib
 wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
 ./quick-sharun /usr/bin/clapper -- https://test-videos.co.uk/vids/bigbuckbunny/mp4/h265/1080/Big_Buck_Bunny_1080_10s_1MB.mp4
-# fix TLS issue
-cp -rv /usr/lib/libp11-kit*       ./AppDir/shared/lib
-mkdir -p ./AppDir/shared/lib/pkcs11/
-cp -rv /usr/lib/pkcs11/*          ./AppDir/shared/lib/pkcs11/
-cp -rv /usr/share/p11-kit         ./AppDir/share
-cp -rv /usr/share/ca-certificates ./AppDir/share
-sed -i 's|/usr|././|g' ./AppDir/shared/lib/libp11-kit* ./AppDir/shared/lib/pkcs11/*
-./quick-sharun l -g
 
 ## Patch StartupWMClass to work on X11
 ## Doesn't work when ran in Wayland, as it's 'com.github.rafostar.Clapper' instead.
