@@ -22,7 +22,7 @@ jobs:
             arch: aarch64
     container: ghcr.io/pkgforge-dev/archlinux:latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Get dependencies
       if: always()
@@ -60,15 +60,15 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/download-artifact@v4.3.0
+        - uses: actions/download-artifact@v5
           with:
             name: AppImage-x86_64
 
-        - uses: actions/download-artifact@v4.3.0
+        - uses: actions/download-artifact@v5
           with:
             name: AppImage-aarch64
 
-        - uses: actions/download-artifact@v4.3.0
+        - uses: actions/download-artifact@v5
           with:
             name: version
 
@@ -78,7 +78,7 @@ jobs:
             echo "DATE=$(date +'%Y-%m-%d_%s')" >> "${GITHUB_ENV}"
 
         - name: Release Artifacts
-          uses: softprops/action-gh-release@v2.2.2
+          uses: softprops/action-gh-release@v2
           with:
             name: "Clapper: ${{ env.VERSION }}"
             tag_name: "${{ env.VERSION }}@${{ env.DATE }}"
@@ -89,7 +89,7 @@ jobs:
             files: |
               *.AppImage*
 
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v5
         - name: Update LATEST_VERSION
           run: |
             echo "${{ env.VERSION }}" > ./LATEST_VERSION
