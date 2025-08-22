@@ -16,7 +16,6 @@ export OUTNAME="$PACKAGE"-"$VERSION"-anylinux-"$ARCH".AppImage
 export DESKTOP=/usr/share/applications/com.github.rafostar.Clapper.desktop
 export ICON=/usr/share/icons/hicolor/scalable/apps/com.github.rafostar.Clapper.svg
 export DEPLOY_OPENGL=1
-export DEPLOY_VULKAN=1
 export DEPLOY_GSTREAMER=1
 export STARTUPWMCLASS=clapper # For Wayland, this is 'com.github.rafostar.Clapper', so this needs to be changed in desktop file manually by the user in that case until some potential automatic fix exists for this
 
