@@ -30,8 +30,5 @@ wget --retry-connrefused --tries=30 "$DEBLOATED_PKGS_INSTALLER" -O ./get-debloat
 chmod +x ./get-debloated-pkgs.sh
 ./get-debloated-pkgs.sh libxml2-mini opus-mini mesa-nano intel-media-driver-mini gtk4-mini
 
-pacman -U --noconfirm ./*.pkg.*
-rm -f ./*.pkg.*
-
 echo "All done!"
 echo "---------------------------------------------------------------"
