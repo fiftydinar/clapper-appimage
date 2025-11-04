@@ -13,6 +13,7 @@ pacman -Syu --noconfirm \
 	curl \
 	desktop-file-utils \
 	git \
+	gst-plugins-bad \
 	libxtst \
 	wget \
 	xorg-server-xvfb \
