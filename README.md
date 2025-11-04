@@ -6,4 +6,4 @@ When the known issues gets solved, repo will be transfered to pkgforge-dev repo 
 
 ## Known issue
 
-- HW-accelerated video decoding doesn't work (tested on AMD Vega 7 iGPU - possible culprit could be the Arch package itself, upstream flatpak is tested to work on Gnome 47 runtime, maybe some newer package version makes it not work)
+- HW-accelerated video decoding doesn't work (tested on AMD Vega 7 iGPU - possible culprit could be the Arch package itself, as it's not working there. Upstream flatpak is tested to work on Gnome 47 runtime, maybe some newer package version makes it not work here)
