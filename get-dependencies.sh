@@ -2,6 +2,7 @@
 
 set -eux
 
+ARCH="$(uname -m)"
 DEBLOATED_PKGS_INSTALLER="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 
 echo "Installing build dependencies for sharun & AppImage integration..."
@@ -20,6 +21,11 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	clapper \
     gst-plugins-bad
+
+if [ "$ARCH" = 'x86_64' ]; then
+	echo "Install 'libva-intel-driver' for newer Intel's video HW acceleration"
+	pacman -Syu --noconfirm libva-intel-driver
+fi
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
