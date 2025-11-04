@@ -11,7 +11,6 @@ pacman -Syu --noconfirm \
 	curl \
 	desktop-file-utils \
 	git \
-	gst-plugins-bad \
 	libxtst \
 	wget \
 	xorg-server-xvfb \
@@ -19,7 +18,8 @@ pacman -Syu --noconfirm \
 echo "Installing the app & it's dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
-	clapper
+	clapper \
+    gst-plugins-bad
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
