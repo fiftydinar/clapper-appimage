@@ -20,7 +20,8 @@ echo "Installing the app & it's dependencies..."
 echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	clapper \
-    gst-plugins-bad
+    gst-plugins-bad \
+	ffmpeg
 
 if [ "$ARCH" = 'x86_64' ]; then
 	echo "Installing 'libva-intel-driver' for older Intel's video HW acceleration"
