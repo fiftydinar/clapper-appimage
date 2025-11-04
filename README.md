@@ -6,4 +6,4 @@ When the known issues gets solved, repo will be transfered to pkgforge-dev repo 
 
 ## Known issue
 
-- Cannot play any video, `clapper` cannot find the GST plugins, even with the environment variable set
+- HW-accelerated video decoding doesn't work (tested on AMD Vega 7 iGPU)
