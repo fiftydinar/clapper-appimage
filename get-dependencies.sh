@@ -27,5 +27,6 @@ wget --retry-connrefused --tries=30 "$DEBLOATED_PKGS_INSTALLER" -O ./get-debloat
 chmod +x ./get-debloated-pkgs.sh
 ./get-debloated-pkgs.sh libxml2-mini opus-mini mesa-nano intel-media-driver-mini gtk4-mini librsvg-mini
 
-echo "All done!"
+echo "Extracting the app version into a version file"
 echo "---------------------------------------------------------------"
+pacman -Q clapper | awk '{print $2; exit}' > ~/version
