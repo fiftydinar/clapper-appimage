@@ -23,7 +23,8 @@ pacman -Syu --noconfirm \
     gst-plugins-bad
 
 if [ "$ARCH" = 'x86_64' ]; then
-	echo "Install 'libva-intel-driver' for older Intel's video HW acceleration"
+	echo "Installing 'libva-intel-driver' for older Intel's video HW acceleration"
+	echo "---------------------------------------------------------------"
 	pacman -Syu --noconfirm libva-intel-driver
 fi
 
