@@ -2,8 +2,6 @@
 
 set -eux
 
-sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-
 DEBLOATED_PKGS_INSTALLER="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 
 echo "Installing build dependencies for sharun & AppImage integration..."
