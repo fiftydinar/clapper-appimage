@@ -21,6 +21,7 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
 	clapper \
     gst-plugins-bad \
+	gst-plugin-va \
 	ffmpeg
 
 if [ "$ARCH" = 'x86_64' ]; then
