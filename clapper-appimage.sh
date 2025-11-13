@@ -30,9 +30,6 @@ wget --retry-connrefused --tries=30 "$SHARUN" -O ./quick-sharun
 chmod +x ./quick-sharun
 ./quick-sharun /usr/bin/clapper -- https://test-videos.co.uk/vids/bigbuckbunny/mp4/h265/1080/Big_Buck_Bunny_1080_10s_1MB.mp4
 
-## Set gsettings to save to keyfile, instead to dconf
-echo "GSETTINGS_BACKEND=keyfile" >> ./AppDir/.env
-
 # Make the AppImage with uruntime
 ./quick-sharun --make-appimage
 
